@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 {% load static %}
 
 {% block 'head' %}
@@ -7,15 +8,17 @@
 
 {% block 'dashboard' %}
 <div class="container">
+    <br>
+    {% bootstrap_messages %}
     <div class="row">
-        <div class="col-md card-dashboard">
+        <div onclick="exibir_form('1')" class="col-md card-dashboard">
             <p class="text-card">Adicionar clientes</p>
         </div>
-        <div class="col-md card-dashboard">
+        <div onclick="exibir_form('2')" class="col-md card-dashboard">
             <p class="text-card">Atualizar clientes</p>
         </div>
     </div>
-    <div class="adicionar-cliente">
+    <div  id="adicionar-cliente">
         <form action="{% url 'clientes' %}" method="POST">
             {% csrf_token %}
             <div class="row">
@@ -25,7 +28,7 @@
                 </div>
                 <div class="col-md">
                     <p>Sobrenome:</p>
-                    <input type="text" class="form-control" placeholder="Sobrenome" name="sobre-nome" value="{{Sobrenome}}" >
+                    <input type="text" class="form-control" placeholder="Sobrenome" name="sobre-nome" value="{{sobrenome}}" >
                 </div>
             </div>
             <br>
@@ -36,8 +39,8 @@
             <input type="text" class="form-control" placeholder="___.___.___-__" name="cpf" value="{{cpf}}">
             <hr style="background-color:gray;">
             <div class="add-carros">
-                <h3>Carros</h3>
-                <span class="btn-add-carros" onclick="add_carro()">+ Adicionar um carro</span>
+                <h3>Veiculos</h3>
+                <span class="btn-add-carros btn btn-primary" onclick="add_carro()">+ Adicionar um carro</span>
 
                 <div id="form-carro">
                     {% for carro, placa, ano in carros %}
@@ -58,10 +61,42 @@
                 </div>
             </div>
             <br>
-            <input type="submit" value="Cadastrar" class="btn-principal">    
+            <input type="submit" value="Cadastrar" class="btn btn-success">    
         </form>
     </div>
-       
+       <div id="att_cliente">
+            <p></p>
+            
+            <select id="cliente-select" onchange="dados_clientes()" class="form-control">
+                <option></option>
+                {% for cliente in clientes %}
+                    <option value="{{cliente.id}}">
+                        {{cliente.nome}}
+                    </option>
+                {% endfor %}
+            </select>
+            <br>
+            <hr>
+            <div id="form-att-cliente">
+                {% bootstrap_messages %}
+                <input type="hidden" id="id">
+                <p>Nome:</p>
+                <input id="nome" type="text" class="form-control">
+                <p>Sobrenome</p>
+                <input type="text" class="form-control" id="sobrenome">
+                <p>E-mail:</p>
+                <input type="text" class="form-control" id="email">
+                <p>CPF:</p>
+                <input type="text" class="form-control" id="cpf">
+                <br>
+                <input onclick="update_cliente()" type="submit" value="Salvar" class="btn btn-success" >
+                <hr style="background-color: gray;">
+                <h3>Carros</h3>
+               <div id="carros">
+
+               </div>
+            </div>
+       </div>
 </div>
 <script src="{% static 'clientes/js/clientes.js' %}"></script>
 {% endblock 'dashboard' %}

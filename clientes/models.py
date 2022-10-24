@@ -1,6 +1,3 @@
-from email.policy import default
-from http import client
-from pyexpat import model
 from django.db import models
 
 class Cliente(models.Model):

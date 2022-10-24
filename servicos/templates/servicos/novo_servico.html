@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'clientes/css/clientes.css' %}">
+{% endblock 'head' %}
+
+{% block 'dashboard' %}
+    <br>
+    <br>
+    <div class="container">
+        {% bootstrap_messages %}
+        <form action="{% url 'novo_servico' %}" method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+
+            <input type="submit" class="btn btn-success" value="Salvar">
+        </form>
+    </div>
+{% endblock 'dashboard' %}
