@@ -1,4 +1,4 @@
-function add_carro(){
+function add_veiculo(){
 
     container = document.getElementById("form-carro")
 
