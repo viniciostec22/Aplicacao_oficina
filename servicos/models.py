@@ -8,7 +8,7 @@ from datetime import datetime
 # Create your models here.
 
 class CategoriaManutencao(models.Model):
-    titulo = models.CharField(max_length=3, choices=ChoicesCategoriaManutencao.choices)
+    titulo = models.CharField(max_length=4, choices=ChoicesCategoriaManutencao.choices)
     preco = models.DecimalField(max_digits=8, decimal_places=2)
     
     def __str__(self) -> str:
